@@ -17,10 +17,9 @@
 		data() {
 			return {
 				oppList: [],
-				oid: 0,
 			}
 		},
-		onLoad: function(e) {
+		onLoad: function() {
 			uni.request({
 				url: 'http://localhost:8080/GetOpponentList',
 				method: 'GET',

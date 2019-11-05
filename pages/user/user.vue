@@ -1,11 +1,13 @@
 <template>
 	<view class="content">
 		<view v-if="userName" class="btn-row">
-			<button v-if="isSign==1" type="default" class="b-border">已签到</button>
-			<button v-if="isSign==2" type="warn" class="b-border" @tap="createSign">待签到</button>
-			<button v-if="isDraw==1" type="default" class="b-border">已抽奖</button>
-			<button v-if="(isDraw==2)&&(dayNum>=5)" type="warn" class="b-border" @tap="createDraw">待抽奖</button>
-			<button v-if="dayNum<5" type="warn" class="b-border" @tap="createDraw" disabled="false">待抽奖</button>
+			<view v-if="userName!='211'">
+				<button v-if="isSign==1" type="default" class="b-border">已签到</button>
+				<button v-if="isSign==2" type="warn" class="b-border" @tap="createSign">待签到</button>
+				<button v-if="isDraw==1" type="default" class="b-border">已抽奖</button>
+				<button v-if="(isDraw==2)&&(dayNum>=5)" type="warn" class="b-border" @tap="createDraw">待抽奖</button>
+				<button v-if="dayNum<5" type="warn" class="b-border" @tap="createDraw" disabled="false">待抽奖</button>
+			</view>			
 			<button type="warn" class="b-border" @tap="updatePwd">修改密码</button>
 			<button type="default" class="b-border" @tap="bindLogout">退出登录</button>
 		</view>

@@ -1,5 +1,9 @@
 <script>
 	export default {
+		globalData: {
+			groupId: 0,
+			uId: 0,
+		},
 		onLaunch: function() {
 			console.log('App Launch');
 		},

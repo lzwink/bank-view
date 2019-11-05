@@ -11,24 +11,32 @@
 				暂未登录，请点击右下角“我的”登录！
 			</view>
 			<view v-if="userName">
-				<view v-if="!oppId" class="ul">
-					<view>请选择您的对手！</view>
-					<button class="b-border" type="warn" @tap="createUserOpp">选择对手</button>
+				<view v-if="userGroup == 1">
+					<button class="b-border" type="warn" @tap="upfile">上传文件</button>
 				</view>
-				<view v-if="oppId" class="ul">
-					<view>您的对手是【 {{oppUserName}} {{oppRealName}} 】</view>
+				<view v-if="userGroup == 4">
+					<button class="b-border" type="warn" @tap="getAllUserGroup">查看全部分组</button>
 				</view>
-				<view v-if="isCreatedTarget==0" class="ul">
-					<view>请创建目标值！</view>
-					<button class="b-border" type="warn" @tap="createUserTarge">创建目标值</button>
-				</view>
-				<view v-if="isCreatedTarget==1" class="ul">
-					<view class="qiun-columns">
-						<view class="qiun-bg-white qiun-title-bar qiun-common-mt">
-							<view class="qiun-title-dot-light">战况对比</view>
-						</view>
-						<view class="qiun-charts">
-							<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts"></canvas>
+				<view v-if="(userGroup == 2)&&(userGroup == 3)">
+					<view v-if="!oppId" class="ul">
+						<view>请选择您的对手！</view>
+						<button class="b-border" type="warn" @tap="createUserOpp">选择对手</button>
+					</view>
+					<view v-if="oppId" class="ul">
+						<view>您的对手是【 {{oppUserName}} {{oppRealName}} 】</view>
+					</view>
+					<view v-if="isCreatedTarget==0" class="ul">
+						<view>请创建目标值！</view>
+						<button class="b-border" type="warn" @tap="createUserTarge">创建目标值</button>
+					</view>
+					<view v-if="isCreatedTarget==1" class="ul">
+						<view class="qiun-columns">
+							<view class="qiun-bg-white qiun-title-bar qiun-common-mt">
+								<view class="qiun-title-dot-light">战况对比</view>
+							</view>
+							<view class="qiun-charts">
+								<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts"></canvas>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -79,6 +87,8 @@
 				oppUserName: "",
 				oppRealName: "",
 				isCreatedTarget: 0,
+				userGroup: 0,
+				allUsersGroup: [],
 			}
 		},
 		onLoad: function(e) {
@@ -105,9 +115,13 @@
 			this.showColumn();
 		},
 		methods: {
-			uploadFile(){
-				this.axios(options).then((res) => {})
-				
+			getAllUserGroup() {
+				uni.navigateTo({
+					url:"../user/userGroupList",
+				})				
+			},
+			upfile() {
+				self.location.href = "http://localhost:8080/UpForm";
 			},
 			showColumn(canvasId, chartData) {
 				canvaColumn = new uCharts({
@@ -226,6 +240,7 @@
 							this.userName = res.data.data.UserName;
 							this.oppId = res.data.data.OpponentId;
 							this.realName = res.data.data.RealName;
+							this.userGroup = res.data.data.AuthGroupId;
 						} else {
 							uni.navigateTo({
 								url: '../login/login',
