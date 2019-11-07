@@ -46,7 +46,7 @@
 			},
 			createTarget() {
 				uni.request({
-					url: 'http://localhost:8080/AddTargetScore',
+					url: 'http://localhost/TargetScore',
 					method: 'GET',
 					data: {
 						eventOne: this.targetOne,

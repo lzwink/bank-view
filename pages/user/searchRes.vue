@@ -24,8 +24,8 @@
 </template>
 
 <script>
-	export default {
-		data() {
+	export default{
+		data(){
 			return {
 				user: [],
 				opp: [],
@@ -33,12 +33,13 @@
 				uScore: [],
 			}
 		},
-		onLoad: function() {
+		onLoad:function(){
 			uni.request({
-				url: 'http://localhost/GetAllInfoById',
+				url: 'http://localhost/SearchAllUsers',
 				method: 'GET',
 				data: {
-					id: getApp().globalData.uId,
+					user_name:getApp().globalData.searchUserName,
+					real_name:getApp().globalData.searchRealName,
 				},
 				success: res => {
 					this.user = res.data.data.user;
@@ -59,7 +60,7 @@
 		flex: 1;
 		flex-direction: column;
 	}
-
+	
 	.title {
 		/* color: #8f8f94; */
 		color: #000000;

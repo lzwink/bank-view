@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="content padding-main">
 		<view class="hello">
 			<view v-if="userName" class="title">
 				工号：{{userName}}
@@ -14,10 +14,7 @@
 				<view v-if="userGroup == 1">
 					<button class="b-border" type="warn" @tap="upfile">上传文件</button>
 				</view>
-				<view v-if="userGroup == 4">
-					<button class="b-border" type="warn" @tap="getAllUserGroup">查看全部分组</button>
-				</view>
-				<view v-if="(userGroup == 2)&&(userGroup == 3)">
+				<view v-if="(userGroup == 2)||(userGroup == 3)">
 					<view v-if="!oppId" class="ul">
 						<view>请选择您的对手！</view>
 						<button class="b-border" type="warn" @tap="createUserOpp">选择对手</button>
@@ -38,8 +35,11 @@
 								<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts"></canvas>
 							</view>
 						</view>
-					</view>
+					</view>					
 				</view>
+				<button class="b-border" type="warn" style="width:30%;" @tap="searchAll" size="mini">全员搜索</button>
+				<button class="b-border" type="warn" style="width:40%;" @tap="getAllUserGroup" size="mini">分组查看</button>
+				<button class="b-border" style="float: right;width:30%;" type="warn" @tap="getTop" size="mini">TOP10</button>
 			</view>
 		</view>
 	</view>
@@ -95,7 +95,7 @@
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			uni.request({
-				url: 'http://localhost:8080/Check',
+				url: 'http://localhost/Check',
 				method: 'GET',
 				data: {},
 				success: res => {
@@ -115,13 +115,23 @@
 			this.showColumn();
 		},
 		methods: {
+			getTop(){
+				uni.navigateTo({
+					url:"../user/top",
+				})
+			},
+			searchAll(){
+				uni.navigateTo({
+					url:"../user/search",
+				})
+			},
 			getAllUserGroup() {
 				uni.navigateTo({
-					url:"../user/userGroupList",
-				})				
+					url: "../user/userGroupList",
+				})
 			},
 			upfile() {
-				self.location.href = "http://localhost:8080/UpForm";
+				self.location.href = "http://localhost/UpForm";
 			},
 			showColumn(canvasId, chartData) {
 				canvaColumn = new uCharts({
@@ -145,7 +155,7 @@
 					yAxis: {
 						disableGrid: true,
 						disabled: true,
-						max: 100,
+						max: 200,
 					},
 					dataLabel: true,
 					width: this.cWidth,
@@ -170,21 +180,21 @@
 			},
 			getOppScore() {
 				uni.request({
-					url: 'http://localhost:8080/GetOppScore',
+					url: 'http://localhost/GetOppScore',
 					method: 'GET',
 					data: {},
 					success: res => {
 						if (res.data.code == 0) {
-							this.oOneScore = (res.data.data.EventOneReal / res.data.data.EventOneTarget).toFixed(2);
-							this.oTwoScore = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget).toFixed(2);
-							this.oThreeScore = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget).toFixed(2);
-							this.oFourScore = (res.data.data.EventFourReal / res.data.data.EventFourTarget).toFixed(2);
-							this.oSumScore = res.data.data.Score;
-							this.chartData.series[0].data[0] = this.oOneScore * 100;
-							this.chartData.series[0].data[1] = this.oTwoScore * 100;
-							this.chartData.series[0].data[2] = this.oThreeScore * 100;
-							this.chartData.series[0].data[3] = this.oFourScore * 100;
-							this.chartData.series[0].data[4] = this.oSumScore;
+							this.chartData.series[1].data[0] = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
+								2);
+							this.chartData.series[1].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
+								2);
+							this.chartData.series[1].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
+								2);
+							// this.chartData.series[1].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
+							// 	2);
+							this.chartData.series[1].data[3] = 100;
+							this.chartData.series[1].data[4] = res.data.data.Score * 100;
 						}
 					},
 					fail: () => {},
@@ -193,7 +203,7 @@
 			},
 			getOppInfo() {
 				uni.request({
-					url: 'http://localhost:8080/GetOppInfo',
+					url: 'http://localhost/GetOppInfo',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -208,21 +218,20 @@
 			},
 			getUserScore() {
 				uni.request({
-					url: 'http://localhost:8080/GetUserScore',
+					url: 'http://localhost/GetUserScore',
 					method: 'GET',
 					data: {},
 					success: res => {
 						if (res.data.code == 0) {
-							this.uOneScore = (res.data.data.EventOneReal / res.data.data.EventOneTarget).toFixed(2);
-							this.uTwoScore = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget).toFixed(2);
-							this.uThreeScore = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget).toFixed(2);
-							this.uFourScore = (res.data.data.EventFourReal / res.data.data.EventFourTarget).toFixed(2);
-							this.uSumScore = res.data.data.Score;
-							this.chartData.series[1].data[0] = this.uOneScore * 100;
-							this.chartData.series[1].data[1] = this.uTwoScore * 100;
-							this.chartData.series[1].data[2] = this.uThreeScore * 100;
-							this.chartData.series[1].data[3] = this.uFourScore * 100;
-							this.chartData.series[1].data[4] = this.uSumScore;
+							this.chartData.series[0].data[0] = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
+								2);
+							this.chartData.series[0].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
+								2);
+							this.chartData.series[0].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
+								2);
+							this.chartData.series[0].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
+								2);
+							this.chartData.series[0].data[4] = res.data.data.Score;
 							this.isCreatedTarget = 1;
 						}
 					},
@@ -232,7 +241,7 @@
 			},
 			getUserInfo() {
 				uni.request({
-					url: 'http://localhost:8080/GetLoginUser',
+					url: 'http://localhost/GetLoginUser',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -262,11 +271,17 @@
 		flex-direction: column;
 	}
 
+	.padding-main {
+		padding-left: 0upx;
+		padding-right: 0upx;
+	}
+
 	.title {
 		/* color: #8f8f94; */
 		color: #000000;
 		font-weight: bold;
 		margin-top: 50upx;
+		padding-left: 10upx;
 	}
 
 	.ul {

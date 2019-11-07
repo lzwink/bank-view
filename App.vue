@@ -3,6 +3,8 @@
 		globalData: {
 			groupId: 0,
 			uId: 0,
+			searchUserName:'',
+			searchRealName:'',
 		},
 		onLaunch: function() {
 			console.log('App Launch');

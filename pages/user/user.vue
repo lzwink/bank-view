@@ -1,13 +1,11 @@
 <template>
 	<view class="content">
 		<view v-if="userName" class="btn-row">
-			<view v-if="userName!='211'">
-				<button v-if="isSign==1" type="default" class="b-border">已签到</button>
-				<button v-if="isSign==2" type="warn" class="b-border" @tap="createSign">待签到</button>
-				<button v-if="isDraw==1" type="default" class="b-border">已抽奖</button>
-				<button v-if="(isDraw==2)&&(dayNum>=5)" type="warn" class="b-border" @tap="createDraw">待抽奖</button>
-				<button v-if="dayNum<5" type="warn" class="b-border" @tap="createDraw" disabled="false">待抽奖</button>
-			</view>			
+			<button v-if="isSign==1" type="default" class="b-border">已签到</button>
+			<button v-if="isSign==2" type="warn" class="b-border" @tap="createSign">待签到</button>
+			<button v-if="isDraw==1" type="default" class="b-border">已抽奖</button>
+			<button v-if="(isDraw==2)&&(dayNum>=5)" type="warn" class="b-border" @tap="createDraw">待抽奖</button>
+			<button v-if="(isDraw==2)&&(dayNum<5)" type="warn" class="b-border" @tap="createDraw" disabled="false">待抽奖</button>
 			<button type="warn" class="b-border" @tap="updatePwd">修改密码</button>
 			<button type="default" class="b-border" @tap="bindLogout">退出登录</button>
 		</view>
@@ -34,7 +32,7 @@
 		},
 		onLoad: function(e) {
 			uni.request({
-				url: 'http://localhost:8080/Check',
+				url: 'http://localhost/Check',
 				method: 'GET',
 				data: {},
 				success: res => {
@@ -52,13 +50,13 @@
 		},
 		mounted: function() {
 			this.getUserInfo();
-			var dt=new Date();
-			this.dayNum=dt.getDay();
+			var dt = new Date();
+			this.dayNum = dt.getDay();
 		},
 		methods: {
 			createDraw() {
 				uni.request({
-					url: 'http://localhost:8080/CreateDraw',
+					url: 'http://localhost/CreateDraw',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -102,7 +100,7 @@
 			},
 			createSign() {
 				uni.request({
-					url: 'http://localhost:8080/CreateSign',
+					url: 'http://localhost/CreateSign',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -135,7 +133,7 @@
 			},
 			getUserInfo() {
 				uni.request({
-					url: 'http://localhost:8080/GetLoginUser',
+					url: 'http://localhost/GetLoginUser',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -159,7 +157,7 @@
 			},
 			bindLogout() {
 				uni.request({
-					url: 'http://localhost:8080/Logout',
+					url: 'http://localhost/Logout',
 					method: 'GET',
 					data: {},
 					success: res => {

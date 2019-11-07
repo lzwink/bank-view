@@ -1,6 +1,6 @@
 <template>
 	<view class="content-opp backcolor">
-		<view v-for="i in groupList">
+		<view v-for="(i,index) in groupList">
 			<view v-if="i['Id']==1">
 				<button type="warn" class="b-border" disabled="false">{{i.Name}}</button>
 			</view>
@@ -8,7 +8,7 @@
 				<button type="default" class="b-border" @click="selectGroup(i['Id'])">{{i.Name}}</button>
 			</view>
 		</view>
-		<view v-for="i in groupList">
+		<view v-for="(i,index) in groupList">
 			<view v-if="i['Id']==2">
 				<button type="warn" class="b-border" disabled="false">{{i.Name}}</button>
 			</view>
@@ -16,7 +16,7 @@
 				<button type="default" class="b-border" @click="selectGroup(i['Id'])">{{i.Name}}</button>
 			</view>
 		</view>
-		<view v-for="i in groupList">
+		<view v-for="(i,index) in groupList">
 			<view v-if="i['Id']==3">
 				<button type="warn" class="b-border" disabled="false">{{i.Name}}</button>
 			</view>
@@ -36,7 +36,7 @@
 		},
 		onLoad: function() {
 			uni.request({
-				url: 'http://localhost:8080/GetAllUsersGroup',
+				url: 'http://localhost/GetAllUsersGroup',
 				method: 'GET',
 				data: {},
 				success: res => {

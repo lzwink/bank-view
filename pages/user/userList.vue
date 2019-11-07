@@ -1,6 +1,6 @@
 <template>
 	<view class="content-opp backcolor">
-		<view v-for="i in userlList">
+		<view v-for="i in userlList" :key="i.Id">
 			<button type="default" class="b-border" @click="selectUser(i['Id'])">{{i.UserName}}&nbsp;&nbsp;{{i.RealName}}</button>
 		</view>
 	</view>
@@ -15,7 +15,7 @@
 		},
 		onLoad: function() {
 			uni.request({
-				url: 'http://localhost:8080/GetUsersByGroupId',
+				url: 'http://localhost/GetUsersByGroupId',
 				method: 'GET',
 				data: {
 					groupId: getApp().globalData.groupId,

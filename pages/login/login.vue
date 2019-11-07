@@ -70,7 +70,7 @@
 				 * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
 				 */
 				uni.request({
-					url: "http://localhost:8080/Login",
+					url: "http://localhost/Login",
 					method: 'GET',
 					data: {
 						userName: this.account,

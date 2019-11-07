@@ -1,15 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页,
 		{
-			"path": "pages/main/main",
-			"style": {
-				"navigationBarTitleText": "2020燃动·新征程零售开门红",
-				"navigationBarBackgroundColor": "#e8313e"
-			}
-		}, {
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
+				"navigationBarBackgroundColor": "#e8313e"
+			}
+		}, {
+			"path": "pages/main/main",
+			"style": {
+				"navigationBarTitleText": "2020燃动·新征程零售开门红",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
 		}, {
@@ -30,31 +30,49 @@
 				"navigationBarTitleText": "选择对手",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
-		},{
-            "path" : "pages/user/target",
-            "style" : {
+		}, {
+			"path": "pages/user/target",
+			"style": {
 				"navigationBarTitleText": "创建目标值",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
-        },{
-            "path" : "pages/user/userGroupList",
-            "style" : {
+		}, {
+			"path": "pages/user/userGroupList",
+			"style": {
 				"navigationBarTitleText": "用户组列表",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
-        },{
-            "path" : "pages/user/userList",
-            "style" : {
+		}, {
+			"path": "pages/user/userList",
+			"style": {
 				"navigationBarTitleText": "组员列表",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
-        },{
-            "path" : "pages/user/userDetail",
-            "style" : {
+		}, {
+			"path": "pages/user/userDetail",
+			"style": {
 				"navigationBarTitleText": "详细信息",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
-        }
+		}, {
+			"path": "pages/user/search",
+			"style": {
+				"navigationBarTitleText": "全员搜索",
+				"navigationBarBackgroundColor": "#e8313e"
+			}
+		}, {
+			"path": "pages/user/searchRes",
+			"style": {
+				"navigationBarTitleText": "搜索结果",
+				"navigationBarBackgroundColor": "#e8313e"
+			}
+		}, {
+			"path": "pages/user/top",
+			"style": {
+				"navigationBarTitleText": "TOP10",
+				"navigationBarBackgroundColor": "#e8313e"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",

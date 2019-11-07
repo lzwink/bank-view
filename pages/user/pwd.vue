@@ -29,7 +29,7 @@
 			},
 			createTarget(){
 				uni.request({
-					url: 'http://localhost:8080/UpdateUserPwd',
+					url: 'http://localhost/UpdateUserPwd',
 					method: 'GET',
 					data: {
 						oldPwd:this.oldPwd,
