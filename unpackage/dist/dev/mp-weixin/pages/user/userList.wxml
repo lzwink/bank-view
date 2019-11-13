@@ -1,0 +1,1 @@
+<view class="content-opp backcolor"><block wx:for="{{userlList}}" wx:for-item="i" wx:for-index="__i0__" wx:key="Id"><view><button class="b-border" type="default" data-event-opts="{{[['tap',[['selectUser',['$0'],[[['userlList','Id',i.Id,'Id']]]]]]]}}" bindtap="__e">{{i.UserName+"  "+i.RealName}}</button></view></block></view>

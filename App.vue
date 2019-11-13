@@ -5,6 +5,7 @@
 			uId: 0,
 			searchUserName:'',
 			searchRealName:'',
+			urlStr:'47.95.212.127',
 		},
 		onLaunch: function() {
 			console.log('App Launch');

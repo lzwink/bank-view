@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "创建目标值",
+  "navigationBarBackgroundColor": "#e8313e",
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}

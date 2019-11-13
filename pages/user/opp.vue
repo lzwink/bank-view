@@ -21,7 +21,7 @@
 		},
 		onLoad: function() {
 			uni.request({
-				url: 'http://localhost/OpponentList',
+				url: 'http://'+getApp().globalData.urlStr+'/OpponentList',
 				method: 'GET',
 				data: {},
 				success: res => {
@@ -46,7 +46,7 @@
 					success: function(res) {
 						if (res.confirm) {
 							uni.request({
-								url: 'http://localhost/ChooseOpponent',
+								url: 'http://'+getApp().globalData.urlStr+'/ChooseOpponent',
 								method: 'GET',
 								data: {
 									oppId: e,

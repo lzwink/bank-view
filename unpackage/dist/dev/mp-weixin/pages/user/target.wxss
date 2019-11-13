@@ -1,0 +1,10 @@
+
+.i-border {
+	border: #8F8F94 1rpx solid;
+	background-color: #EFEFF4;
+	margin-top: 10rpx;
+}
+.b-border{
+	margin-bottom: 10rpx;
+}
+

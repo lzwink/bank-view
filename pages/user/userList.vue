@@ -15,7 +15,7 @@
 		},
 		onLoad: function() {
 			uni.request({
-				url: 'http://localhost/GetUsersByGroupId',
+				url: 'http://'+getApp().globalData.urlStr+'/GetUsersByGroupId',
 				method: 'GET',
 				data: {
 					groupId: getApp().globalData.groupId,

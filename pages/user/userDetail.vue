@@ -8,16 +8,16 @@
 				编号：{{user.UserName}}
 			</view>
 			<view class="title">
-				目前得分：{{uScore.Score}}
+				目前得分：{{(uScore.Score*100).toFixed(2)}}
 			</view>
 			<view class="title-o">
 				对手名：{{opp.RealName}}
 			</view>
 			<view class="title-o">
 				编号：{{opp.UserName}}
-			</view>			
+			</view>
 			<view class="title-o">
-				对手得分：{{oScore.Score}}
+				对手得分：{{(oScore.Score*100).toFixed(2)}}
 			</view>
 		</view>
 	</view>
@@ -35,7 +35,7 @@
 		},
 		onLoad: function() {
 			uni.request({
-				url: 'http://localhost/GetAllInfoById',
+				url: 'http://' + getApp().globalData.urlStr + '/GetAllInfoById',
 				method: 'GET',
 				data: {
 					id: getApp().globalData.uId,
@@ -66,7 +66,8 @@
 		font-weight: bold;
 		margin-top: 50upx;
 	}
-	.title-o{
+
+	.title-o {
 		color: #555555;
 		font-weight: bold;
 		margin-top: 50upx;

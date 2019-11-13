@@ -12,7 +12,7 @@
 		</view>
 		<view class="btn-row">
 			<button type="warn" @tap="bindLogin">登录</button>
-		</view>		
+		</view>
 	</view>
 </template>
 
@@ -36,7 +36,6 @@
 				positionTop: 0
 			}
 		},
-		computed: mapState(['forcedLogin']),
 		methods: {
 			initPosition() {
 				/**
@@ -70,7 +69,7 @@
 				 * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
 				 */
 				uni.request({
-					url: "http://localhost/Login",
+					url: 'http://' + getApp().globalData.urlStr + '/Login',
 					method: 'GET',
 					data: {
 						userName: this.account,
@@ -78,10 +77,11 @@
 					},
 					success: res => {
 						if (res.data.code == 0) {
+							this.$store.state.userName = this.account;
 							uni.switchTab({
-								url: '../main/main',
+								url: '../main/main',								
 							});
-						}else{
+						} else {
 							uni.navigateBack();
 						}
 					},
@@ -97,5 +97,5 @@
 </script>
 
 <style>
-	
+
 </style>

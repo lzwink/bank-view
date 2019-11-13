@@ -32,7 +32,7 @@
 		},
 		onLoad: function(e) {
 			uni.request({
-				url: 'http://localhost/Check',
+				url: 'http://'+getApp().globalData.urlStr+'/Check',
 				method: 'GET',
 				data: {},
 				success: res => {
@@ -56,7 +56,7 @@
 		methods: {
 			createDraw() {
 				uni.request({
-					url: 'http://localhost/CreateDraw',
+					url: 'http://'+getApp().globalData.urlStr+'/CreateDraw',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -65,28 +65,25 @@
 								content: '抱歉，暂未达到抽奖条件！',
 								showCancel: false,
 								success: res => {
+									var _this = this;
 									if (res.confirm) {
-										uni.reLaunch({
-											url: "../user/user",
-										})
+										_this.$router.go(0);
 									}
 								}
 							});
-							// this.$router.go(0);
 						};
 						if (res.data.code == 0) {
 							uni.showModal({
+								title:'恭喜您获得',
 								content: res.data.data,
 								showCancel: false,
 								success: res => {
+									var _this = this;
 									if (res.confirm) {
-										uni.reLaunch({
-											url: "../user/user",
-										})
+										_this.$router.go(0);
 									}
 								}
 							});
-							// this.$router.go(0);
 						}
 					},
 					fail: () => {},
@@ -100,21 +97,21 @@
 			},
 			createSign() {
 				uni.request({
-					url: 'http://localhost/CreateSign',
+					url: 'http://'+getApp().globalData.urlStr+'/CreateSign',
 					method: 'GET',
 					data: {},
 					success: res => {
+						var _this = this;
 						if (res.data.code == 0) {
 							uni.showModal({
 								content: "签到成功",
 								showCancel: false,
-								duration: 2000,
+								success:ress=>{
+									if (ress.confirm){
+										_this.$router.go(0);
+									}
+								}
 							});
-							this.$router.go(0);
-							// uni.showToast({
-							// 	duration: 2000
-							// });
-							// this.$router.go(0);
 						} else {
 							uni.showModal({
 								content: '签到失败，请重试！',
@@ -133,7 +130,7 @@
 			},
 			getUserInfo() {
 				uni.request({
-					url: 'http://localhost/GetLoginUser',
+					url: 'http://'+getApp().globalData.urlStr+'/GetLoginUser',
 					method: 'GET',
 					data: {},
 					success: res => {
@@ -157,7 +154,7 @@
 			},
 			bindLogout() {
 				uni.request({
-					url: 'http://localhost/Logout',
+					url: 'http://'+getApp().globalData.urlStr+'/Logout',
 					method: 'GET',
 					data: {},
 					success: res => {

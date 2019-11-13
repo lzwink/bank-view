@@ -1,0 +1,1 @@
+<view class="content"><view class="hello"><view class="title">{{'用户名：'+user.RealName+''}}</view><view class="title">{{'编号：'+user.UserName+''}}</view><view class="title">{{'目前得分：'+$root.g0+''}}</view><view class="title-o">{{'对手名：'+opp.RealName+''}}</view><view class="title-o">{{'编号：'+opp.UserName+''}}</view><view class="title-o">{{'对手得分：'+$root.g1+''}}</view></view></view>

@@ -8,7 +8,7 @@
 				编号：{{user.UserName}}
 			</view>
 			<view class="title">
-				目前得分：{{uScore.Score}}
+				目前得分：{{(uScore.Score*100).toFixed(2)}}
 			</view>
 			<view class="title-o">
 				对手名：{{opp.RealName}}
@@ -17,7 +17,7 @@
 				编号：{{opp.UserName}}
 			</view>			
 			<view class="title-o">
-				对手得分：{{oScore.Score}}
+				对手得分：{{(oScore.Score*100).toFixed(2)}}
 			</view>
 		</view>
 	</view>
@@ -35,7 +35,7 @@
 		},
 		onLoad:function(){
 			uni.request({
-				url: 'http://localhost/SearchAllUsers',
+				url: 'http://'+getApp().globalData.urlStr+'/SearchAllUsers',
 				method: 'GET',
 				data: {
 					user_name:getApp().globalData.searchUserName,

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "全员搜索",
+  "navigationBarBackgroundColor": "#e8313e",
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}
