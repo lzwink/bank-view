@@ -72,6 +72,12 @@
 				"navigationBarTitleText": "TOP10",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
+		}, {
+			"path": "pages/user/draw",
+			"style": {
+				"navigationBarTitleText": "抽奖",
+				"navigationBarBackgroundColor": "#e8313e"
+			}
 		}
     ],
 	"tabBar": {

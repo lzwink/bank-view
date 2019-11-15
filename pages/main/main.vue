@@ -1,6 +1,7 @@
 <template>
 	<view class="content padding-main">
 		<view class="hello">
+			<image src="../../static/img/cj.jpg" style="width:750upx;height: 131upx;" @tap="draw"></image>
 			<view v-if="userName" class="title">
 				工号：{{userName}}
 			</view>
@@ -213,6 +214,11 @@
 			}
 		},
 		methods: {
+			draw(){
+				uni.navigateTo({
+					url:"../user/draw",
+				})
+			},
 			getTop() {
 				uni.navigateTo({
 					url: "../user/top",
@@ -395,8 +401,7 @@
 	}
 
 	.padding-main {
-		padding-left: 0upx;
-		padding-right: 0upx;
+		padding:0upx;		
 	}
 
 	.title {
