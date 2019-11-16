@@ -1,12 +1,12 @@
 <template>
 	<view class="content">
 		<view class="input-group">
-			<view class="input-row border">
+			<!-- <view class="input-row border">
 				<text class="title">账号：</text>
 				<m-input class="m-input" type="text" clearable v-model="search_user_name"></m-input>
-			</view>
+			</view> -->
 			<view class="input-row">
-				<text class="title">姓名：</text>
+				<text class="title">机构名或姓名：</text>
 				<m-input class="m-input" type="text" clearable v-model="search_real_name"></m-input>
 			</view>
 		</view>
@@ -51,4 +51,7 @@
 </script>
 
 <style>
+	.title{
+		width: 40%;
+	}
 </style>

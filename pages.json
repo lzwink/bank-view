@@ -78,6 +78,12 @@
 				"navigationBarTitleText": "抽奖",
 				"navigationBarBackgroundColor": "#e8313e"
 			}
+		}, {
+			"path": "pages/user/paiming",
+			"style": {
+				"navigationBarTitleText": "辖区排名",
+				"navigationBarBackgroundColor": "#e8313e"
+			}
 		}
     ],
 	"tabBar": {

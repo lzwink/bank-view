@@ -6,6 +6,7 @@
 			searchUserName:'',
 			searchRealName:'',
 			urlStr:'47.95.212.127',
+			// urlStr:'localhost',
 		},
 		onLaunch: function() {
 			console.log('App Launch');

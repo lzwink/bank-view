@@ -79,7 +79,7 @@
 						if (res.data.code == 0) {
 							this.$store.state.userName = this.account;
 							uni.switchTab({
-								url: '../main/main',								
+								url: '../main/main',
 							});
 						} else {
 							uni.navigateBack();

@@ -1,12 +1,20 @@
 <template>
 	<view class="content padding-main">
 		<view class="hello">
+			<textscroll :list="drawList"/>
 			<image src="../../static/img/cj.jpg" style="width:750upx;height: 131upx;" @tap="draw"></image>
+			<view class="hello-1">
+				<image src="../../static/img/pm.jpg" style="width: 203upx;height: 66upx;"></image>
+				<view style="height: 46upx;width: 100upx;background-color: #db3d3e;color:#FFFFFF;padding-top: 20upx;padding-left: 20upx;font-weight: bold;">{{rank}}</view>
+				<image src="../../static/img/jx.jpg" style="width: 242upx;height: 66upx;"></image>
+				<view style="height: 46upx;width:166upx;background-color: #e44f51;color: #FFFFFF;padding-top: 20upx;padding-left: 20upx;font-weight: bold;">{{jixiao}}</view>
+			</view>
+			<image src="../../static/img/zh_btn.jpg" style="width:750upx;height: 80upx;" @tap="paiming"></image>
 			<view v-if="userName" class="title">
-				工号：{{userName}}
+				机构号或柜员号：{{userName}}
 			</view>
 			<view v-if="userName" class="title">
-				姓名：{{realName}}
+				机构名或姓名：{{realName}}
 			</view>
 			<view v-if="!userName" class="title">
 				暂未登录，请点击右下角“我的”登录！
@@ -53,25 +61,25 @@
 									<t-td>AUM</t-td>
 									<t-td>{{userScore.EventOneReal}}</t-td>
 									<t-td>{{userScore.EventOneTarget}}</t-td>
-									<t-td>{{(userScore.EventOneReal/userScore.EventOneTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{uAPercent}}%</t-td>
 								</t-tr>
 								<t-tr>
 									<t-td>全口径</t-td>
 									<t-td>{{userScore.EventTwoReal}}</t-td>
 									<t-td>{{userScore.EventTwoTarget}}</t-td>
-									<t-td>{{(userScore.EventTwoReal/userScore.EventTwoTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{uBPercent}}%</t-td>
 								</t-tr>
 								<t-tr>
 									<t-td>一般性</t-td>
 									<t-td>{{userScore.EventThreeReal}}</t-td>
 									<t-td>{{userScore.EventThreeTarget}}</t-td>
-									<t-td>{{(userScore.EventThreeReal/userScore.EventThreeTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{uCPercent}}%</t-td>
 								</t-tr>
 								<t-tr>
 									<t-td>中收</t-td>
 									<t-td>{{userScore.EventFourReal}}</t-td>
 									<t-td>{{userScore.EventFourTarget}}</t-td>
-									<t-td>{{(userScore.EventFourReal/userScore.EventFourTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{uDPercent}}%</t-td>
 								</t-tr>
 							</t-table>
 						</view>
@@ -92,25 +100,25 @@
 									<t-td>AUM</t-td>
 									<t-td>{{oppScore.EventOneReal}}</t-td>
 									<t-td>{{oppScore.EventOneTarget}}</t-td>
-									<t-td>{{(oppScore.EventOneReal/oppScore.EventOneTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{oAPercent}}%</t-td>
 								</t-tr>
 								<t-tr>
 									<t-td>全口径</t-td>
 									<t-td>{{oppScore.EventTwoReal}}</t-td>
 									<t-td>{{oppScore.EventTwoTarget}}</t-td>
-									<t-td>{{(oppScore.EventTwoReal/oppScore.EventTwoTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{oBPercent}}%</t-td>
 								</t-tr>
 								<t-tr>
 									<t-td>一般性</t-td>
 									<t-td>{{oppScore.EventThreeReal}}</t-td>
 									<t-td>{{oppScore.EventThreeTarget}}</t-td>
-									<t-td>{{(oppScore.EventThreeReal/oppScore.EventThreeTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{oCPercent}}%</t-td>
 								</t-tr>
 								<t-tr>
 									<t-td>中收</t-td>
 									<t-td>{{oppScore.EventFourReal}}</t-td>
 									<t-td>{{oppScore.EventFourTarget}}</t-td>
-									<t-td>{{(oppScore.EventFourReal/oppScore.EventFourTarget*100).toFixed(2)}}%</t-td>
+									<t-td>{{oDPercent}}%</t-td>
 								</t-tr>
 							</t-table>
 						</view>
@@ -144,8 +152,9 @@
 		},
 		data() {
 			return {
-				oppScore:[],
-				userScore:[],
+				drawList:[],
+				oppScore: [],
+				userScore: [],
 				cWidth: '',
 				cHeight: '',
 				chartData: {
@@ -180,6 +189,16 @@
 				userGroup: 0,
 				allUsersGroup: [],
 				yMax: 0,
+				rank: 0,
+				jixiao: 0,
+				uAPercent: 0,
+				uBPercent: 0,
+				uCPercent: 0,
+				uDPercent: 0,
+				oAPercent: 0,
+				oBPercent: 0,
+				oCPercent: 0,
+				oDPercent: 0,
 			}
 		},
 		onLoad: function(e) {
@@ -199,6 +218,8 @@
 			});
 		},
 		mounted: function() {
+			this.getDraw();
+			this.getUserRank();
 			this.getUserInfo();
 			this.getOppInfo();
 			this.getOppScore();
@@ -214,9 +235,43 @@
 			}
 		},
 		methods: {
-			draw(){
+			getDraw(){
+				uni.request({
+					url: 'http://' + getApp().globalData.urlStr + '/GetAllDraw',
+					method: 'GET',
+					data: {},
+					success: res => {
+						if (res.data.code == 0){
+							this.drawList = res.data.data;
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			getUserRank() {
+				uni.request({
+					url: 'http://' + getApp().globalData.urlStr + '/GetRangeAndJixiao',
+					method: 'GET',
+					data: {},
+					success: res => {
+						if (res.data.code == 0) {
+							this.rank = res.data.data.rank;
+							this.jixiao = res.data.data.jixiao;
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			paiming() {
 				uni.navigateTo({
-					url:"../user/draw",
+					url: "../user/paiming",
+				})
+			},
+			draw() {
+				uni.navigateTo({
+					url: "../user/draw",
 				})
 			},
 			getTop() {
@@ -289,15 +344,44 @@
 					data: {},
 					success: res => {
 						if (res.data.code == 0) {
-							this.chartData.series[1].data[0] = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
-								2);
-							this.chartData.series[1].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
-								2);
-							this.chartData.series[1].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
-								2);
-							this.chartData.series[1].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
-								2);
-							this.chartData.series[1].data[4] = (res.data.data.Score * 100).toFixed(2);
+							if (res.data.data.EventOneReal > 0) {
+								this.chartData.series[1].data[0] = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
+									2);
+								this.oAPercent = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[1].data[0] = 0
+							}
+							if (res.data.data.EventTwoReal > 0) {
+								this.chartData.series[1].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
+									2);
+								this.oBPercent = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[1].data[1] = 0
+							}
+							if (res.data.data.EventThreeReal > 0) {
+								this.chartData.series[1].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
+									2);
+								this.oCPercent = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[1].data[2] = 0
+							}
+							if (res.data.data.EventFourReal > 0) {
+								this.chartData.series[1].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
+									2);
+								this.oDPercent = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[1].data[3] = 0
+							}
+							if (res.data.data.Score > 0) {
+								this.chartData.series[1].data[4] = (res.data.data.Score * 100).toFixed(2);
+							} else {
+								this.chartData.series[1].data[4] = 0
+							}
+
 							var i
 							for (i = 0; i < this.chartData.series[1].data.length; i++) {
 								if (this.chartData.series[1].data[i] > this.yMax) {
@@ -305,6 +389,7 @@
 								}
 							};
 							this.oppScore = res.data.data;
+
 							this.getUserScore();
 						}
 					},
@@ -334,14 +419,39 @@
 					data: {},
 					success: res => {
 						if (res.data.code == 0) {
-							this.chartData.series[0].data[0] = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
-								2);
-							this.chartData.series[0].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
-								2);
-							this.chartData.series[0].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
-								2);
-							this.chartData.series[0].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
-								2);
+							if (res.data.data.EventOneReal > 0) {
+								this.chartData.series[0].data[0] = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
+									2);
+								this.uAPercent = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[0].data[0] = 0
+							}
+							if (res.data.data.EventTwoReal > 0) {
+								this.chartData.series[0].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
+									2);
+								this.uBPercent = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[0].data[1]
+							}
+							if (res.data.data.EventThreeReal > 0) {
+								this.chartData.series[0].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
+									2);
+								this.uCPercent = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[0].data[2] = 0
+							}
+							if (res.data.data.EventFourReal > 0) {
+								this.chartData.series[0].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
+									2);
+								this.uDPercent = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
+									2);
+							} else {
+								this.chartData.series[0].data[3] = 0
+							}
+
 							this.chartData.series[0].data[4] = (res.data.data.Score * 100).toFixed(2);
 							this.isCreatedTarget = 1;
 							var i;
@@ -385,23 +495,31 @@
 </script>
 
 <style>
-	.t-td{
+	.t-td {
 		background-color: #FFFFFF;
 		border: 0upx;
 		font-weight: bold;
 	}
-	.t-th{
+
+	.t-th {
 		background-color: #FFFFFF;
 		border: 0upx;
 	}
+
 	.hello {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
 	}
 
+	.hello-1 {
+		display: flex;
+		flex-direction: row;
+		background-color: #dc4244;
+	}
+
 	.padding-main {
-		padding:0upx;		
+		padding: 0upx;
 	}
 
 	.title {
