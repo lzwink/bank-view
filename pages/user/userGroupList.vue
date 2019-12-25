@@ -7,7 +7,7 @@
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score>i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score>i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:300upx;text-align: left;padding-top: 10upx;padding-left: 20upx;">
 						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[0].realName}}</span>
@@ -28,13 +28,15 @@
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score<i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score<i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:300upx;text-align: left;padding-top: 9upx;padding-left: 20upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width: 250upx;text-align: right;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="background-color: #f12e32;height: 80upx;width: 28upx;margin-left: 73upx;"></view>
 				</view>
@@ -48,14 +50,14 @@
 				</view>
 			</view>
 			<view style="width: 100%;height: 20upx;background-color: #f12e32;"></view>
-			
-			
+
+
 			<image src="../../static/img/fz_gb.jpg" style="width: 750upx;height: 131upx;"></image>
 			<view class="content" v-for="i in gbList" :key="i[0].userName">
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score>i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score>i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:100upx;text-align: left;padding-top: 10upx;padding-left: 30upx;">
 						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[0].realName}}</span>
@@ -79,16 +81,19 @@
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score<i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score<i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:100upx;text-align: left;padding-top: 9upx;padding-left: 30upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width:360upx;text-align: center;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].orgName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].orgName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width: 83upx;text-align: right;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="background-color: #f12e32;height: 80upx;width: 28upx;margin-left: 73upx;"></view>
 				</view>
@@ -102,14 +107,14 @@
 				</view>
 			</view>
 			<view style="width: 100%;height: 20upx;background-color: #f12e32;"></view>
-			
-			
+
+
 			<image src="../../static/img/fz_dg.jpg" style="width: 750upx;height: 131upx;"></image>
 			<view class="content" v-for="i in dgList" :key="i[0].userName">
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score>i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score>i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:100upx;text-align: left;padding-top: 10upx;padding-left: 30upx;">
 						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[0].realName}}</span>
@@ -133,16 +138,19 @@
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score<i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score<i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:100upx;text-align: left;padding-top: 9upx;padding-left: 30upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width:360upx;text-align: center;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].orgName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].orgName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width: 83upx;text-align: right;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="background-color: #f12e32;height: 80upx;width: 28upx;margin-left: 73upx;"></view>
 				</view>
@@ -156,14 +164,14 @@
 				</view>
 			</view>
 			<view style="width: 100%;height: 20upx;background-color: #f12e32;"></view>
-			
-			
+
+
 			<image src="../../static/img/fz_sc.jpg" style="width: 750upx;height: 131upx;"></image>
 			<view class="content" v-for="i in scList" :key="i[0].userName">
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score>i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score>i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:100upx;text-align: left;padding-top: 10upx;padding-left: 30upx;">
 						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[0].realName}}</span>
@@ -187,16 +195,19 @@
 				<view class="content-list">
 					<view style="background-color: #f12e32;height: 80upx;width: 33upx;"></view>
 					<view style="height: 80upx;width:50upx;background: #FFFFFF;">
-						<image v-if="i[0].score<i[1].score" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
+						<image v-if="(i[1] != null) && (i[0].score<i[1].score)" src="../../static/img/win.png" style="float:right;width:40upx;height: 53upx;padding-top: 10upx;"></image>
 					</view>
 					<view style="height: 70upx;width:100upx;text-align: left;padding-top: 9upx;padding-left: 30upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].realName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width:360upx;text-align: center;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].orgName}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{i[1].orgName}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="height: 70upx;width: 83upx;text-align: right;padding-top: 9upx;border-bottom: 1upx solid #C8C7CC;">
-						<span style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] != null" style="font-size: 25upx;color: #ff0047;font-weight: bold;">{{(i[1].score*100).toFixed(2)}}</span>
+						<span v-if="i[1] == null" style="font-size: 25upx;color: #ff0047;font-weight: bold;"></span>
 					</view>
 					<view style="background-color: #f12e32;height: 80upx;width: 28upx;margin-left: 73upx;"></view>
 				</view>
@@ -211,7 +222,7 @@
 			</view>
 			<view style="width: 100%;height: 20upx;background-color: #f12e32;"></view>
 		</view>
-	</view>	
+	</view>
 </template>
 
 <script>

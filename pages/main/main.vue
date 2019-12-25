@@ -222,7 +222,7 @@
 			this.getUserRank();
 			this.getUserInfo();
 			this.getOppInfo();
-			this.getOppScore();
+			this.getUserScore();
 		},
 		computed: {
 			isToken() {
@@ -350,7 +350,7 @@
 								this.oAPercent = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[1].data[0] = 0
+								this.chartData.series[1].data[0] = 0;
 							}
 							if (res.data.data.EventTwoReal > 0) {
 								this.chartData.series[1].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
@@ -358,7 +358,7 @@
 								this.oBPercent = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[1].data[1] = 0
+								this.chartData.series[1].data[1] = 0;
 							}
 							if (res.data.data.EventThreeReal > 0) {
 								this.chartData.series[1].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
@@ -366,7 +366,7 @@
 								this.oCPercent = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[1].data[2] = 0
+								this.chartData.series[1].data[2] = 0;
 							}
 							if (res.data.data.EventFourReal > 0) {
 								this.chartData.series[1].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
@@ -374,12 +374,12 @@
 								this.oDPercent = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[1].data[3] = 0
+								this.chartData.series[1].data[3] = 0;
 							}
 							if (res.data.data.Score > 0) {
 								this.chartData.series[1].data[4] = (res.data.data.Score * 100).toFixed(2);
 							} else {
-								this.chartData.series[1].data[4] = 0
+								this.chartData.series[1].data[4] = 0;
 							}
 
 							var i
@@ -389,9 +389,14 @@
 								}
 							};
 							this.oppScore = res.data.data;
-
-							this.getUserScore();
+						}else{
+							this.chartData.series[1].data[0] = 0;
+							this.chartData.series[1].data[1] = 0;
+							this.chartData.series[1].data[2] = 0;
+							this.chartData.series[1].data[3] = 0;
+							this.chartData.series[1].data[4] = 0;
 						}
+						this.showColumn();
 					},
 					fail: () => {},
 					complete: () => {}
@@ -425,7 +430,7 @@
 								this.uAPercent = (res.data.data.EventOneReal / res.data.data.EventOneTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[0].data[0] = 0
+								this.chartData.series[0].data[0] = 0;
 							}
 							if (res.data.data.EventTwoReal > 0) {
 								this.chartData.series[0].data[1] = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
@@ -433,7 +438,7 @@
 								this.uBPercent = (res.data.data.EventTwoReal / res.data.data.EventTwoTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[0].data[1]
+								this.chartData.series[0].data[1] = 0;
 							}
 							if (res.data.data.EventThreeReal > 0) {
 								this.chartData.series[0].data[2] = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
@@ -441,7 +446,7 @@
 								this.uCPercent = (res.data.data.EventThreeReal / res.data.data.EventThreeTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[0].data[2] = 0
+								this.chartData.series[0].data[2] = 0;
 							}
 							if (res.data.data.EventFourReal > 0) {
 								this.chartData.series[0].data[3] = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
@@ -449,7 +454,7 @@
 								this.uDPercent = (res.data.data.EventFourReal / res.data.data.EventFourTarget * 100).toFixed(
 									2);
 							} else {
-								this.chartData.series[0].data[3] = 0
+								this.chartData.series[0].data[3] = 0;
 							}
 
 							this.chartData.series[0].data[4] = (res.data.data.Score * 100).toFixed(2);
@@ -462,7 +467,7 @@
 							};
 							this.yMax = parseInt(this.yMax) + 50;
 							this.userScore = res.data.data;
-							this.showColumn();
+							this.getOppScore()
 						}
 					},
 					fail: () => {},
