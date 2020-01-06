@@ -31,10 +31,10 @@
 					<view v-if="oppId" class="ul">
 						<view>您的对手是【 {{oppUserName}} {{oppRealName}} 】</view>
 					</view>
-					<view v-if="isCreatedTarget==0" class="ul">
+					<!-- <view v-if="isCreatedTarget==0" class="ul">
 						<view>请创建目标值！</view>
 						<button class="b-border" type="warn" @tap="createUserTarge">创建目标值</button>
-					</view>
+					</view> -->
 					<view v-if="isCreatedTarget==1" class="ul">
 						<view class="qiun-columns">
 							<view class="qiun-bg-white qiun-title-bar qiun-common-mt">

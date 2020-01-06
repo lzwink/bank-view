@@ -21,7 +21,7 @@
 		},
 		onLoad: function() {
 			uni.request({
-				url: 'http://'+getApp().globalData.urlStr+'/OpponentList',
+				url: 'http://'+getApp().globalData.urlStr+'/GetOpponentList',
 				method: 'GET',
 				data: {},
 				success: res => {
@@ -55,6 +55,18 @@
 									if (res.data.code == 0) {
 										uni.showModal({
 											content: "绑定成功！",
+											showCancel: false,
+											success: function(res) {
+												if (res.confirm) {
+													uni.switchTab({
+														url: '../main/main',
+													});
+												}
+											}
+										})
+									}else{
+										uni.showModal({
+											content: "绑定失败，请重新选择",
 											showCancel: false,
 											success: function(res) {
 												if (res.confirm) {
